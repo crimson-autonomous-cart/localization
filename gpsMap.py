@@ -1,11 +1,23 @@
+"""
+Script to visualize route using GPS latitude and longitutude.
+
+Usage:
+    python3 gpsMap.py <dataFile.txt>
+"""
 import cv2
 import numpy as np
+import sys
+
+# Check that correct number of arguments were passed in
+if len(sys.argv) != 2:
+    print("Usage: python3 gpsMap.py <dataFile.txt")
+    sys.exit(0)
 
 # Read data points from file
 data_points = []
-with open('output_data1.txt', 'r') as file:
+with open(sys.argv[1], 'r') as file:
     for line in file:
-        lat, lon = map(float, line.split()[1::2])
+        lat, lon, header = map(float, line.split()[1::2])
         data_points.append((lat, lon))
 
 # Find minimum and maximum latitude and longitude
